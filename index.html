@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test</title>
+    <style>
+        body {
+            position: relative;
+            background-color: black;
+            cursor: none;
+        }
+        h1 {
+            color: #fff;
+        }
+        .cursor_item {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            top: 0;
+            left: 0;
+        }
+    </style>
+    <script>
+        let x = 0;
+        let y = 0;
+        let cursor_item;
+        let h1;
+
+        let mouseX = 0;
+        let mouseY = 0;
+        let speed = 0.05;
+
+        window.onload = function() {
+            h1 = document.getElementsByTagName("h1")[0];
+            cursor_item = document.getElementsByClassName("cursor_item")[0];
+            window.addEventListener("mousemove", mouseFunc, false);
+
+            function mouseFunc(event) {
+                x = event.clientX;
+                y = event.clientY;
+            }
+
+            loop();
+        }
+
+        function loop() {
+            mouseX += (x - mouseX) * speed;
+            mouseY += (y - mouseY) * speed;
+
+            h1.innerHTML = "x: " + x + " mx: " + mouseX;
+
+            cursor_item.style.transform = "translate(" + mouseX + "px, " + mouseY +"px)"
+            window.requestAnimationFrame(loop); // 프레임을 계속해서 반복 동작하게 한다.
+        }
+    </script>
+</head>
+<body>
+    <h1>test</h1>
+    <div class="cursor_item"></div>
+</body>
+</html>
